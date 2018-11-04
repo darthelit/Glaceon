@@ -1,0 +1,12 @@
+const FETCH_POKEMON = 'FETCH_POKEMON';
+const UPDATE_POKEMON = 'UPDATE_POKEMON';
+
+export {
+  FETCH_POKEMON,
+  UPDATE_POKEMON
+};
+
+export default {
+  FETCH_POKEMON,
+  UPDATE_POKEMON
+};
