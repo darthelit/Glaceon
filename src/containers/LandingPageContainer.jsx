@@ -1,12 +1,18 @@
 import React, { Component} from 'react';
 import PropTypes from 'prop-types';
+import { css } from 'react-emotion';
 import { Container } from 'flux/utils';
-import { ProgressBar } from 'primereact/progressbar';
 import GlaceonActions from '../flux/glaceon/GlaceonActions';
 import GlaceonStore from '../flux/glaceon/GlaceonStore';
 import Pokemon from '../components/Pokemon';
 import GlaceonSource from '../flux/glaceon/GlaceonSource';
 import util from '../util/Util';
+
+const loaderOverride = css`
+  top: 50%;
+  right: 50%;
+  position: absolute
+`;
 
 class LandingPageContainer extends Component {
   static getStores() {
@@ -23,15 +29,20 @@ class LandingPageContainer extends Component {
   }
 
   componentDidMount() {
-    GlaceonSource.fetchPokemonData()
-      .then(resp => {
-        GlaceonActions.fetchPokemon(resp.data.results);
-      })
+    GlaceonSource.fetchPokemonData();
   }
 
   render() {
     if(this.state.isLoading) {
-      return (<progress class="progress is-large is-info" max="100">60%</progress>)
+      return (
+        <div id="loading">
+          <div class="pokeball" id="normal"></div>
+          <div class="pokeball" id="great"></div>
+          <div class="pokeball" id="ultra"></div>
+          <div class="pokeball" id="master"></div>
+          <div class="pokeball" id="safari"></div>
+        </div>
+)
     }
     return (
       <div className="home">
@@ -44,7 +55,6 @@ class LandingPageContainer extends Component {
             </div>
           </div>
         </section>
-        <Pokemon pokemon={this.state.pokemon} />
       </div>
     )
   }
