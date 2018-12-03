@@ -1,7 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import styled, { css } from 'react-emotion';
+import { css } from 'react-emotion';
 import util from '../util/Util';
 
 const poke = css`

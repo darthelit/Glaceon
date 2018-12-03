@@ -29,7 +29,10 @@ class LandingPageContainer extends Component {
   }
 
   componentDidMount() {
-    GlaceonSource.fetchPokemonData();
+    GlaceonSource.fetchPokemonData()
+      .then(() => {
+        return GlaceonSource.fetchPokemonByGen();
+      });
   }
 
   render() {
