@@ -6,11 +6,11 @@ import {
 import GlaceonSource from './GlaceonSource';
 
 const GlaceonActions = {
-  fetchPokemon(pokemon) {
+  fetchPokemonByGen(pokemon) {
     Dispatcher.dispatch({
       type: FETCH_POKEMON,
     });
-    GlaceonSource.fetchPokemon(pokemon, this.updatePokemon);
+    GlaceonSource.fetchPokemonByGen(this.updatePokemon);
   },
   updatePokemon(pokemon) {
     Dispatcher.dispatch({

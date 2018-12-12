@@ -1,4 +1,8 @@
+
 const util = {
+  pokeNumSort(a,b) {
+    return a.id - b.id;
+  },
   isEmpty(obj) {
     if ((obj === null) || (obj === undefined)) {
       return true;
@@ -15,6 +19,18 @@ const util = {
   },
   capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
+  },
+  getPokemonNumFromUrl(pokemonData) {
+    const pokemonNumArray = pokemonData.map(pokemon => {
+      const pokemonId = Number(pokemon.url.split('/')[6])
+      pokemon.id = pokemonId;
+      return pokemon;
+    });
+    return pokemonNumArray;
+  },
+  sortPokemonByNumber(pokemonData) {
+    this.getPokemonNumFromUrl(pokemonData);
+    return pokemonData.sort(this.pokeNumSort);
   }
 }
 

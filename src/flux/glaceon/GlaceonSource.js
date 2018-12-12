@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { PokemonClient } from '../../data/PokemonClient';
+import util from '../../util/Util';
 
 const GlaceonSource = {
   fetchPokemonData() {
@@ -29,8 +30,15 @@ const GlaceonSource = {
       '/api/v2/generation/7/'
     ])
       .then((data) => {
-        console.log(data);
-        return data;
+        const gens = data.map(gen => {
+          return {
+            name: gen.name,
+            region: gen.main_region.name,
+            pokemon: gen.pokemon_species,
+            sortedPokemon: util.sortPokemonByNumber(gen.pokemon_species)
+          }
+        });
+        success(gens);
       });
   }
 }

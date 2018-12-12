@@ -31,19 +31,51 @@ class LandingPageContainer extends Component {
   componentDidMount() {
     GlaceonSource.fetchPokemonData()
       .then(() => {
-        return GlaceonSource.fetchPokemonByGen();
+        return GlaceonActions.fetchPokemonByGen();
       });
+  }
+
+  generateOptions(pokeData) {
+    const opts = (pokeData.map(mon => (
+      <a href="#" className="dropdown-item">{util.capitalizeFirstLetter(mon.name)}</a>
+      // <option key={mon.id} value={mon.url}>{util.capitalizeFirstLetter(mon.name)}</option>
+    )));
+    return opts;
+  }
+
+  getGenerationDropDowns(pokeData) {
+    const genData = [];
+    const ddls = pokeData.map(gen => {
+      return (
+        <div id={`${gen.name}-dropdown`} className="dropdown">
+          <div className="dropdown-trigger">
+            <button className="button" aria-haspopup="true" aria-controls="dropdown-menu3" onClick={() => document.getElementById(`${gen.name}-dropdown`).classList.toggle('is-active')}>
+              <span>{util.capitalizeFirstLetter(gen.name)}</span>
+              <span className="icon is-small">
+                <i className="fas fa-angle-down" aria-hidden="true"></i>
+              </span>
+            </button>
+          </div>
+          <div className="dropdown-menu" id={`${gen.name}-dropdown-menu`} role="menu">
+            <div className="dropdown-content">
+              {this.generateOptions(gen.pokemon)}
+            </div>
+          </div>
+        </div>
+      )
+    });
+    return ddls;
   }
 
   render() {
     if(this.state.isLoading) {
       return (
         <div id="loading">
-          <div class="pokeball" id="normal"></div>
-          <div class="pokeball" id="great"></div>
-          <div class="pokeball" id="ultra"></div>
-          <div class="pokeball" id="master"></div>
-          <div class="pokeball" id="safari"></div>
+          <div className="pokeball" id="normal"></div>
+          <div className="pokeball" id="great"></div>
+          <div className="pokeball" id="ultra"></div>
+          <div className="pokeball" id="master"></div>
+          <div className="pokeball" id="safari"></div>
         </div>
 )
     }
@@ -55,6 +87,7 @@ class LandingPageContainer extends Component {
               <h1 className="title">
                 POKEMON!!!
               </h1>
+              {this.getGenerationDropDowns(this.state.pokemon)}
             </div>
           </div>
         </section>
