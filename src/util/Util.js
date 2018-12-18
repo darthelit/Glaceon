@@ -3,6 +3,9 @@ const util = {
   pokeNumSort(a,b) {
     return a.id - b.id;
   },
+  valueIsTruePrimitive(obj) {
+    return (typeof obj === 'string') || (typeof obj === 'number') || (typeof obj === 'boolean') || obj instanceof Date;
+  },
   isEmpty(obj) {
     if ((obj === null) || (obj === undefined)) {
       return true;

@@ -3,7 +3,9 @@ import { ReduceStore } from 'flux/utils';
 import Dispatcher from '../Dispatcher';
 import {
   FETCH_POKEMON,
-  UPDATE_POKEMON
+  UPDATE_POKEMON,
+  FETCH_POKEMON_BY_ID,
+  UPDATE_CURRENT_POKEMON
 } from '../../util/Constants';
 
 class GlaceonStore extends ReduceStore {
@@ -14,7 +16,8 @@ class GlaceonStore extends ReduceStore {
   getInitialState() {
     const initialState = fromJS({
       pokemon: [],
-      isLoading: true
+      isLoading: true,
+      currentPokemon: {}
     });
     return initialState;
   }
@@ -26,6 +29,11 @@ class GlaceonStore extends ReduceStore {
       case UPDATE_POKEMON:
         state = state.set('isLoading', false);
         return state.set('pokemon', action.pokemon);
+      case FETCH_POKEMON_BY_ID:
+        return state.set('isLoading', true);
+      case UPDATE_CURRENT_POKEMON:
+        state = state.set('isLoading', false);
+        return state.set('currentPokemon', action.pokemon);
       default:
         return state;
     }

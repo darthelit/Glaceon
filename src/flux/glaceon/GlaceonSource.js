@@ -40,6 +40,13 @@ const GlaceonSource = {
         });
         success(gens);
       });
+  },
+  async fetchPokemonById(pokemonId, success) {
+    const data = await PokemonClient().getPokemonByName(pokemonId)
+    const formData = await PokemonClient().getPokemonFormByName(pokemonId)
+
+    data.sprites = formData.sprites;
+    success(data);
   }
 }
 

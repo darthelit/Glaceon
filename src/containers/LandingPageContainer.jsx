@@ -1,12 +1,13 @@
 import React, { Component} from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { css } from 'react-emotion';
 import { Container } from 'flux/utils';
 import GlaceonActions from '../flux/glaceon/GlaceonActions';
 import GlaceonStore from '../flux/glaceon/GlaceonStore';
-import Pokemon from '../components/Pokemon';
 import GlaceonSource from '../flux/glaceon/GlaceonSource';
 import util from '../util/Util';
+import Loading from '../components/Loading';
 
 const loaderOverride = css`
   top: 50%;
@@ -24,7 +25,8 @@ class LandingPageContainer extends Component {
   static calculateState() {
     return {
       ...GlaceonStore.getState().toJS(),
-      fetchPokemon: GlaceonActions.fetchPokemon
+      fetchPokemon: GlaceonActions.fetchPokemon,
+      fetchPokemonById: GlaceonActions.fetchPokemonById
     };
   }
 
@@ -37,8 +39,14 @@ class LandingPageContainer extends Component {
 
   generateOptions(pokeData) {
     const opts = (pokeData.map(mon => (
-      <a href="#" className="dropdown-item">{util.capitalizeFirstLetter(mon.name)}</a>
-      // <option key={mon.id} value={mon.url}>{util.capitalizeFirstLetter(mon.name)}</option>
+      <a
+        id={mon.id}
+        href={`${this.props.match.url}/pokemon/${mon.id}`}
+        className="dropdown-item"
+        onClick={() => GlaceonActions.fetchPokemonById(mon.id)}
+      >
+        {util.capitalizeFirstLetter(mon.name)}
+      </a>
     )));
     return opts;
   }
@@ -57,7 +65,7 @@ class LandingPageContainer extends Component {
             </button>
           </div>
           <div className="dropdown-menu" id={`${gen.name}-dropdown-menu`} role="menu">
-            <div className="dropdown-content">
+            <div className="dropdown-content dropdown-scroll">
               {this.generateOptions(gen.pokemon)}
             </div>
           </div>
@@ -69,15 +77,7 @@ class LandingPageContainer extends Component {
 
   render() {
     if(this.state.isLoading) {
-      return (
-        <div id="loading">
-          <div className="pokeball" id="normal"></div>
-          <div className="pokeball" id="great"></div>
-          <div className="pokeball" id="ultra"></div>
-          <div className="pokeball" id="master"></div>
-          <div className="pokeball" id="safari"></div>
-        </div>
-)
+      return (<Loading />)
     }
     return (
       <div className="home">
