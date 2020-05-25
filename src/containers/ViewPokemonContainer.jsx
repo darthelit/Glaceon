@@ -61,6 +61,14 @@ class ViewPokemonContainer extends Component {
     )
   };
 
+  getSprites(sprites) {
+    const spriteArray = [];
+    for (let [key, value] of Object.entries(sprites)) {
+      spriteArray.push(<img src={value} alt={key} style={{ verticalAlign: 'middle' }} />)
+    }
+    return spriteArray;
+  }
+
   componentDidMount() {
     if (util.isEmpty(this.state.currentPokemon)) {
       GlaceonActions.fetchPokemonById(this.props.match.params.pokemonId);
@@ -73,12 +81,19 @@ class ViewPokemonContainer extends Component {
     }
     return (
       <div className="container">
-        <img src={this.state.currentPokemon.sprites.front_default} alt="front sprite" style={{ verticalAlign: 'middle' }} />
+        <h1 className="title">{util.capitalizeFirstLetter(this.state.currentPokemon.name)}</h1>
+        {this.getSprites(this.state.currentPokemon.sprites)}
         <br />
+        <p style={{ textDecoration: 'underline'}}>Types</p>
         {this.state.currentPokemon.types.map(type=> (
           <img style={{ paddingLeft: 5 }} src={`/images/${type.type.name}.gif`} alt={type.type.name} />
         ))}
-        <h1 className="title">{util.capitalizeFirstLetter(this.state.currentPokemon.name)}</h1>
+        <p style={{ textDecoration: 'underline'}}>Base Stats</p>
+        {this.state.currentPokemon.stats.map(stat => (
+          <>
+          <p>{stat.stat.name}: {stat.base_stat}</p>
+          </>
+        ))}
         {this.getMoveDropDown(this.state.currentPokemon.moves)}
         <div className="column is-desktop">
         <h2 class="subtitle">Podex Entries</h2>
