@@ -3,7 +3,7 @@ import {
   FETCH_POKEMON,
   UPDATE_POKEMON,
   FETCH_POKEMON_BY_ID,
-  UPDATE_CURRENT_POKEMON
+  UPDATE_CURRENT_POKEMON,
 } from '../../util/Constants';
 import GlaceonSource from './GlaceonSource';
 

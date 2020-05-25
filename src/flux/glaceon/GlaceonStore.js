@@ -1,12 +1,7 @@
 import { fromJS } from 'immutable';
 import { ReduceStore } from 'flux/utils';
 import Dispatcher from '../Dispatcher';
-import {
-  FETCH_POKEMON,
-  UPDATE_POKEMON,
-  FETCH_POKEMON_BY_ID,
-  UPDATE_CURRENT_POKEMON
-} from '../../util/Constants';
+import { FETCH_POKEMON, UPDATE_POKEMON, FETCH_POKEMON_BY_ID, UPDATE_CURRENT_POKEMON } from '../../util/Constants';
 
 class GlaceonStore extends ReduceStore {
   constructor() {
@@ -17,7 +12,7 @@ class GlaceonStore extends ReduceStore {
     const initialState = fromJS({
       pokemon: [],
       isLoading: true,
-      currentPokemon: {}
+      currentPokemon: {},
     });
     return initialState;
   }
@@ -37,7 +32,7 @@ class GlaceonStore extends ReduceStore {
       default:
         return state;
     }
-  };
+  }
 }
 
 export default new GlaceonStore();
