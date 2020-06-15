@@ -1,5 +1,6 @@
 import React from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
+import { RecoilRoot } from 'recoil';
 import PropTypes from 'prop-types';
 import createBrowserHistory from 'history/createBrowserHistory';
 import Landing from '../containers/LandingPageContainer';
@@ -16,13 +17,15 @@ const Home = ({ match }) => (
 );
 
 Home.propTypes = {
-  match: PropTypes.object.isRequired
+  match: PropTypes.object.isRequired,
 };
 
 const App = () => (
-  <Router history={history}>
-    <Route path='/glaceon' component={Home} />
-  </Router>
+  <RecoilRoot>
+    <Router history={history}>
+      <Route path='/glaceon' component={Home} />
+    </Router>
+  </RecoilRoot>
 );
 
 export default App;

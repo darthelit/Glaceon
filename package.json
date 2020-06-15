@@ -19,7 +19,9 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.1",
     "react-spinners": "^0.8.3",
-    "react-transition-group": "^2.9.0"
+    "react-transition-group": "^2.9.0",
+    "recoil": "^0.0.7",
+    "rxjs": "^6.5.5"
   },
   "scripts": {
     "start": "react-scripts start",
