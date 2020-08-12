@@ -17,7 +17,7 @@
     "react-emotion": "^9.2.12",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^3.4.1",
+    "react-scripts": "^3.4.2",
     "react-spinners": "^0.8.3",
     "react-transition-group": "^2.9.0"
   },
